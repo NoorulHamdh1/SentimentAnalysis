@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Sentiment Analysis</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="glass-card">
+
+    <h1>Sentiment Analysis</h1>
+
+    <p class="subtitle">
+        Analyze text using TextBlob NLP
+    </p>
+
+    <form method="POST">
+
+        <textarea
+            name="text"
+            placeholder="Enter your text here..."
+            required></textarea>
+
+        <button type="submit">
+            Analyze Sentiment
+        </button>
+
+    </form>
+
+    {% if sentiment %}
+
+    <div class="result">
+
+        <div class="
+            {% if 'Positive' in sentiment %}
+            positive
+            {% elif 'Negative' in sentiment %}
+            negative
+            {% else %}
+            neutral
+            {% endif %}
+        ">
+
+            <h2>{{ sentiment }}</h2>
+
+        </div>
+
+        <div class="input-box">
+
+            <h3>Analyzed Text</h3>
+
+            <p>{{ text_input }}</p>
+
+        </div>
+
+        <div class="stats">
+
+            <div class="stat-box">
+
+                <h3>Polarity</h3>
+
+                <p>{{ polarity }}</p>
+
+            </div>
+
+            <div class="stat-box">
+
+                <h3>Subjectivity</h3>
+
+                <p>{{ subjectivity }}</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+    <div class="history">
+
+        <h2>Recent Analyses</h2>
+
+        {% for item in history %}
+
+        <div class="history-item">
+
+            <p><strong>Text:</strong> {{ item.text }}</p>
+
+            <p>
+                <strong>Sentiment:</strong>
+                {{ item.sentiment }}
+            </p>
+
+            <p>
+                Polarity:
+                {{ item.polarity }}
+                |
+                Subjectivity:
+                {{ item.subjectivity }}
+            </p>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    <footer>
+
+        Powered by Flask + TextBlob
+
+    </footer>
+
+</div>
+
+</body>
+</html>

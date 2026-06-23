@@ -1,0 +1,20 @@
+[
+    {
+        "text": "i am neutral",
+        "sentiment": "Neutral \ud83d\ude10",
+        "polarity": 0.0,
+        "subjectivity": 0.0
+    },
+    {
+        "text": "I am very happy",
+        "sentiment": "Positive \ud83d\ude0a",
+        "polarity": 1.0,
+        "subjectivity": 1.0
+    },
+    {
+        "text": "I am very sad\r\n",
+        "sentiment": "Negative \ud83d\ude21",
+        "polarity": -0.65,
+        "subjectivity": 1.0
+    }
+]
