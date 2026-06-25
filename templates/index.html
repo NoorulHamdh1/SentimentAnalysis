@@ -19,113 +19,176 @@
 
 <body>
 
-<div class="glass-card">
+<div class="container">
 
-    <h1>Sentiment Analysis</h1>
+    <header>
 
-    <p class="subtitle">
-        Analyze text using TextBlob NLP
-    </p>
+        <div>
 
-    <form method="POST">
+            <h1>Sentiment Analysis</h1>
 
-        <textarea
-            name="text"
-            placeholder="Enter your text here..."
-            required></textarea>
+            <p>
+                Understand the emotion behind your text using TextBlob.
+            </p>
 
-        <button type="submit">
-            Analyze Sentiment
-        </button>
+        </div>
 
-    </form>
+        <div class="badge">
 
-    {% if sentiment %}
+            Flask · TextBlob
 
-    <div class="result">
+        </div>
 
-        <div class="
-            {% if 'Positive' in sentiment %}
-            positive
-            {% elif 'Negative' in sentiment %}
-            negative
+    </header>
+
+    <main>
+
+        <!-- LEFT SIDE -->
+
+        <section class="input-section">
+
+            <h2>Write</h2>
+
+            <form method="POST">
+
+                <textarea
+                    name="text"
+                    placeholder="Type or paste your text here..."
+                    required></textarea>
+
+                <button type="submit">
+
+                    Analyze →
+
+                </button>
+
+            </form>
+
+        </section>
+
+        <!-- RIGHT SIDE -->
+
+        <section class="result-section">
+
+            <h2>Analysis</h2>
+
+            {% if sentiment %}
+
+            <div class="result-card">
+
+                <h3 class="
+                    {% if 'Positive' in sentiment %}
+                        positive
+                    {% elif 'Negative' in sentiment %}
+                        negative
+                    {% else %}
+                        neutral
+                    {% endif %}
+                ">
+
+                    {{ sentiment }}
+
+                </h3>
+
+                <p class="description">
+
+                    {% if 'Positive' in sentiment %}
+                    The text expresses an overall optimistic tone.
+
+                    {% elif 'Negative' in sentiment %}
+                    The text expresses an overall negative tone.
+
+                    {% else %}
+                    The text is mostly factual or emotionally balanced.
+                    {% endif %}
+
+                </p>
+
+                <div class="metric">
+
+                    <span>Polarity</span>
+
+                    <strong>{{ polarity }}</strong>
+
+                </div>
+
+                <div class="metric">
+
+                    <span>Subjectivity</span>
+
+                    <strong>{{ subjectivity }}</strong>
+
+                </div>
+
+            </div>
+
             {% else %}
-            neutral
+
+            <div class="empty-state">
+
+                <h3>No analysis yet</h3>
+
+                <p>
+                    Your sentiment analysis results will appear here after
+                    you analyze some text.
+                </p>
+
+            </div>
+
             {% endif %}
-        ">
 
-            <h2>{{ sentiment }}</h2>
+        </section>
 
-        </div>
+    </main>
 
-        <div class="input-box">
-
-            <h3>Analyzed Text</h3>
-
-            <p>{{ text_input }}</p>
-
-        </div>
-
-        <div class="stats">
-
-            <div class="stat-box">
-
-                <h3>Polarity</h3>
-
-                <p>{{ polarity }}</p>
-
-            </div>
-
-            <div class="stat-box">
-
-                <h3>Subjectivity</h3>
-
-                <p>{{ subjectivity }}</p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    {% endif %}
-
-    <div class="history">
+    <section class="history-section">
 
         <h2>Recent Analyses</h2>
 
-        {% for item in history %}
+        {% if history %}
 
-        <div class="history-item">
+            {% for item in history %}
 
-            <p><strong>Text:</strong> {{ item.text }}</p>
+            <article class="history-card">
 
-            <p>
-                <strong>Sentiment:</strong>
-                {{ item.sentiment }}
+                <p class="history-text">
+
+                    "{{ item.text }}"
+
+                </p>
+
+                <div class="history-footer">
+
+                    <span>{{ item.sentiment }}</span>
+
+                    <small>
+
+                        Polarity {{ item.polarity }}
+                        ·
+                        Subjectivity {{ item.subjectivity }}
+
+                    </small>
+
+                </div>
+
+            </article>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p class="history-empty">
+
+                No previous analyses found.
+
             </p>
 
-            <p>
-                Polarity:
-                {{ item.polarity }}
-                |
-                Subjectivity:
-                {{ item.subjectivity }}
-            </p>
+        {% endif %}
 
-        </div>
-
-        {% endfor %}
-
-    </div>
-
-    <footer>
-
-        Powered by Flask + TextBlob
-
-    </footer>
+    </section>
 
 </div>
 
 </body>
+
 </html>
