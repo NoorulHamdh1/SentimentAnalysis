@@ -1,3 +1,8 @@
 [
-    
+    {
+        "text": "I am very happy",
+        "sentiment": "Positive \ud83d\ude0a",
+        "polarity": 1.0,
+        "subjectivity": 1.0
+    }
 ]
